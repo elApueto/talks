@@ -24,3 +24,14 @@ function respondJSON(response, status, data) { // stringified JSON
 	respond(response, status, JSON.stringify(data), 'application/json');
 }
 
+// talks
+var talks = Object.create(null);
+//server is gonna just send JSON data and the client will handle it
+
+router.add('GET', /^\/talks\/([^\/]+)$/,function (request, response, title) {
+	if (title in talks) {
+		respondJSON(response, 200, talks[title]);
+	} else {
+		respond(response, 404, 'Talk not '+ title + ' found');
+	}
+});
